@@ -37,3 +37,27 @@
 .filter-btn[data-status="Converted"].active { background: #2e844a; border-color: #2e844a; }
 .filter-btn[data-status="Lost"]:hover,
 .filter-btn[data-status="Lost"].active { background: #c23934; border-color: #c23934; }
+
+/* Login page enhancements */
+.login-card .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+}
+
+/* Sidebar active state */
+.nav-link.active {
+    background-color: rgba(255,255,255,0.1);
+    border-radius: 8px;
+}
+
+.nav-link:hover {
+    background-color: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-2 {
+        min-height: auto !important;
+    }
+}
