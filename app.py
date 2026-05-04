@@ -358,3 +358,72 @@ def logout():
     return redirect(url_for('login'))    
 
 
+from flask import Flask, render_template, request, redirect, url_for, flash, session
+from functools import wraps
+import hashlib
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key-here-change-in-production'  # IMPORTANT: Change this!
+
+# Simple user database (replace with real database in production)
+USERS = {
+    'admin@aparaitech.com': {
+        'password': hashlib.sha256('admin123'.encode()).hexdigest(),
+        'user_id': 1,
+        'name': 'Administrator'
+    }
+}
+
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:
+            flash('Please login to access this page', 'warning')
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+        remember = request.form.get('remember')
+        
+        if email in USERS:
+            hashed_password = hashlib.sha256(password.encode()).hexdigest()
+            if USERS[email]['password'] == hashed_password:
+                session['user_id'] = USERS[email]['user_id']
+                session['user_email'] = email
+                session['user_name'] = USERS[email]['name']
+                
+                if remember:
+                    session.permanent = True
+                
+                flash('Login successful! Welcome back.', 'success')
+                return redirect(url_for('index'))
+            else:
+                flash('Invalid email or password', 'danger')
+        else:
+            flash('Invalid email or password', 'danger')
+    
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    session.clear()
+    flash('You have been logged out successfully.', 'info')
+    return redirect(url_for('login'))
+
+@app.route('/')
+@login_required
+def index():
+    return render_template('dashboard.html')  # Your dashboard template
+
+# Apply @login_required decorator to all protected routes
+@app.route('/leads')
+@login_required
+def leads():
+    return render_template('leads.html')
+
+# Add similar decorators to your other routes
