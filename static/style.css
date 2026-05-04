@@ -1,0 +1,39 @@
+/* ========== Salesforce-Style Filter Buttons ========== */
+.filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 1.5rem;
+}
+.filter-btn {
+    background: white;
+    border: 1px solid #d9dde4;
+    border-radius: 40px;
+    padding: 6px 18px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #1b2a3e;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.02);
+}
+.filter-btn:hover {
+    background: #f3f6f9;
+    border-color: #0176d3;
+    transform: translateY(-1px);
+}
+.filter-btn.active {
+    background: #0176d3;
+    border-color: #0176d3;
+    color: white;
+    box-shadow: 0 2px 6px rgba(1,118,211,0.2);
+}
+/* Status-specific colors (optional) */
+.filter-btn[data-status="New"]:hover,
+.filter-btn[data-status="New"].active { background: #0176d3; border-color: #0176d3; }
+.filter-btn[data-status="Contacted"]:hover,
+.filter-btn[data-status="Contacted"].active { background: #e68a2e; border-color: #e68a2e; }
+.filter-btn[data-status="Converted"]:hover,
+.filter-btn[data-status="Converted"].active { background: #2e844a; border-color: #2e844a; }
+.filter-btn[data-status="Lost"]:hover,
+.filter-btn[data-status="Lost"].active { background: #c23934; border-color: #c23934; }

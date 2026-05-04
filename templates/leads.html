@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h2><i class="fas fa-users me-2"></i>Lead Management</h2>
+    <div>
+        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addLeadModal"><i class="fas fa-plus"></i> Add Lead</button>
+        <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#importModal"><i class="fas fa-upload"></i> Import CSV</button>
+    </div>
+</div>
+<!-- Filter buttons -->
+<div class="mb-3">
+    <label>Filter by Status:</label>
+ <div class="filter-group">
+    <a href="/leads" class="filter-btn {% if not filter_status %}active{% endif %}">All</a>
+    <a href="/leads?status=New" class="filter-btn" data-status="New">New</a>
+    <a href="/leads?status=Contacted" class="filter-btn" data-status="Contacted">Contacted</a>
+    <a href="/leads?status=Converted" class="filter-btn" data-status="Converted">Converted</a>
+    <a href="/leads?status=Lost" class="filter-btn" data-status="Lost">Lost</a>
+</div>
+</div>
+<div class="table-responsive">
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark"><tr><th>ID</th><th>Name</th><th>Email</th><th>Phone</th><th>Company</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for lead in leads %}
+            <tr>
+                <td>{{ lead.id }}</td>
+                <td>{{ lead.name }}</td>
+                <td>{{ lead.email }}</td>
+                <td>{{ lead.phone or '-' }}</td>
+                <td>{{ lead.company or '-' }}</td>
+                <td><span class="badge bg-{{ 'success' if lead.status=='New' else 'warning' if lead.status=='Contacted' else 'info' if lead.status=='Converted' else 'danger' }}">{{ lead.status }}</span></td>
+                <td>{{ lead.created_at[:10] }}</td>
+                <td>
+                    <button class="btn btn-sm btn-warning" data-bs-toggle="modal" data-bs-target="#editLeadModal{{ lead.id }}"><i class="fas fa-edit"></i></button>
+                    <a href="/lead/delete/{{ lead.id }}" class="btn btn-sm btn-danger" onclick="return confirm('Delete?')"><i class="fas fa-trash"></i></a>
+                </td>
+            </tr>
+            <!-- Edit Modal for each lead -->
+            <div class="modal fade" id="editLeadModal{{ lead.id }}"><div class="modal-dialog"><div class="modal-content">
+                <form method="post" action="/lead/edit/{{ lead.id }}">
+                    <div class="modal-header"><h5>Edit Lead</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+                    <div class="modal-body">
+                        <input type="text" name="name" class="form-control mb-2" value="{{ lead.name }}" required>
+                        <input type="email" name="email" class="form-control mb-2" value="{{ lead.email }}" required>
+                        <input type="text" name="phone" class="form-control mb-2" value="{{ lead.phone or '' }}" placeholder="Phone">
+                        <input type="text" name="company" class="form-control mb-2" value="{{ lead.company or '' }}" placeholder="Company">
+                        <select name="status" class="form-control"><option value="New" {{ 'selected' if lead.status=='New' }}>New</option><option value="Contacted" {{ 'selected' if lead.status=='Contacted' }}>Contacted</option><option value="Converted" {{ 'selected' if lead.status=='Converted' }}>Converted</option><option value="Lost" {{ 'selected' if lead.status=='Lost' }}>Lost</option></select>
+                    </div>
+                    <div class="modal-footer"><button type="submit" class="btn btn-primary">Save</button></div>
+                </form>
+            </div></div></div>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% include "modals.html" %}
+{% endblock %}

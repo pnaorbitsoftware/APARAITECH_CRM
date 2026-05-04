@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="fas fa-envelope-open-text me-2"></i>Email Campaign</h2>
+<form method="post" action="/email">
+    <div class="card">
+        <div class="card-header">Select Recipients</div>
+        <div class="card-body" style="max-height: 200px; overflow-y: auto;">
+            {% for lead in leads %}
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="lead_ids" value="{{ lead.id }}" id="lead{{ lead.id }}">
+                <label class="form-check-label" for="lead{{ lead.id }}">{{ lead.name }} ({{ lead.email }})</label>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="card mt-3">
+        <div class="card-header">Email Content</div>
+        <div class="card-body">
+            <input type="text" name="subject" class="form-control mb-3" placeholder="Email Subject" required>
+            <textarea name="html_body" rows="12" class="form-control font-monospace" placeholder="HTML email body. Use {{NAME}}, {{EMAIL}}, {{COMPANY}} placeholders." required>
+&lt;h2&gt;Hello {{NAME}},&lt;/h2&gt;
+&lt;p&gt;Thank you for your interest in Aparaitech Software. We would like to invite you for a free consultation.&lt;/p&gt;
+&lt;a href="https://forms.gle/7z1ytGekrB8VSVTf8" style="background:#1e88e5; color:white; padding:10px 20px; text-decoration:none; border-radius:5px;"&gt;Schedule Now&lt;/a&gt;
+&lt;br&gt;&lt;p&gt;Best regards,&lt;br&gt;APARAITECH SOFTWARE Team&lt;/p&gt;
+            </textarea>
+        </div>
+        <div class="card-footer"><button type="submit" class="btn btn-success"><i class="fas fa-paper-plane"></i> Send Campaign</button></div>
+    </div>
+</form>
+{% endblock %}

@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lead Segments</h2>
+<form method="post" action="/segment/create" class="row g-2 mb-3">
+    <div class="col-auto"><input name="name" placeholder="Segment name" class="form-control" required></div>
+    <div class="col-auto"><select name="status" class="form-select"><option value="">Any Status</option><option>New</option><option>Contacted</option><option>Converted</option></select></div>
+    <div class="col-auto"><input name="min_score" placeholder="Min score" class="form-control"></div>
+    <div class="col-auto"><button class="btn btn-primary">Create</button></div>
+</form>
+<table class="table"><thead><tr><th>Name</th><th>Conditions</th><th>Created</th></tr></thead><tbody>
+{% for s in segments %}<tr><td>{{ s.name }}</td><td>{{ s.conditions }}</td><td>{{ s.created_at[:10] }}</td></tr>{% endfor %}
+</tbody></table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><i class="fab fa-google me-2"></i>Google Form Submissions</h2>
+<div class="card mt-3">
+    <div class="card-header">Manual Entry (or Webhook)</div>
+    <div class="card-body">
+        <form method="post">
+            <div class="row">
+                <div class="col-md-6 mb-2"><input name="name" placeholder="Full Name" class="form-control" required></div>
+                <div class="col-md-6 mb-2"><input name="email" placeholder="Email" class="form-control" required></div>
+                <div class="col-md-4 mb-2"><input name="phone" placeholder="Phone" class="form-control"></div>
+                <div class="col-md-4 mb-2"><input name="company" placeholder="Company" class="form-control"></div>
+                <div class="col-md-4 mb-2"><input name="role" placeholder="Role" class="form-control"></div>
+                <div class="col-12 mb-2"><input name="services" placeholder="Services interested in" class="form-control"></div>
+                <div class="col-12 mb-2"><textarea name="requirement" placeholder="Requirement description" rows="2" class="form-control"></textarea></div>
+                <div class="col-12"><button type="submit" class="btn btn-primary">Save Submission</button></div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="table-responsive mt-3">
+    <table class="table table-bordered">
+        <thead class="table-dark"><tr><th>Name</th><th>Email</th><th>Services</th><th>Requirement</th><th>Received</th></tr></thead>
+        <tbody>
+            {% for s in submissions %}
+            <tr>
+                <td>{{ s.name }}</td>
+                <td>{{ s.email }}</td>
+                <td>{{ s.services[:50] if s.services else '-' }}</td>
+                <td>{{ s.requirement[:80] if s.requirement else '-' }}</td>
+                <td>{{ s.submitted_at[:10] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

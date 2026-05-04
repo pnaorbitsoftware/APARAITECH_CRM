@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create Campaign</h2>
+<form method="post">
+    <div><input name="name" placeholder="Campaign Name" class="form-control mb-2" required></div>
+    <div><input name="subject" placeholder="Email Subject" class="form-control mb-2" required></div>
+    <div><textarea name="html_body" rows="10" placeholder="HTML content. Use {{NAME}}, {{EMAIL}}, {{TRACK_OPEN}}" class="form-control mb-2"></textarea></div>
+    <div class="row"><div class="col"><label>Segment by status</label><select name="status" class="form-control"><option value="">All</option><option>New</option><option>Contacted</option><option>Converted</option></select></div><div class="col"><label>Min score</label><input name="min_score" type="number" class="form-control" placeholder="e.g., 10"></div></div>
+    <button type="submit" class="btn btn-success mt-3">Save Campaign</button>
+</form>
+{% endblock %}

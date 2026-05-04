@@ -1,0 +1,26 @@
+<!-- Add Lead Modal -->
+<div class="modal fade" id="addLeadModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+    <form method="post" action="/lead/add">
+        <div class="modal-header"><h5>Add New Lead</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+            <input type="text" name="name" class="form-control mb-2" placeholder="Full Name" required>
+            <input type="email" name="email" class="form-control mb-2" placeholder="Email Address" required>
+            <input type="text" name="phone" class="form-control mb-2" placeholder="Phone">
+            <input type="text" name="company" class="form-control mb-2" placeholder="Company">
+            <select name="status" class="form-control"><option>New</option><option>Contacted</option><option>Converted</option><option>Lost</option></select>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary">Add Lead</button></div>
+    </form>
+</div></div></div>
+
+<!-- Import CSV Modal -->
+<div class="modal fade" id="importModal" tabindex="-1"><div class="modal-dialog"><div class="modal-content">
+    <form method="post" action="/import-csv" enctype="multipart/form-data">
+        <div class="modal-header"><h5>Import CSV</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+        <div class="modal-body">
+            <input type="file" name="csv" accept=".csv" class="form-control" required>
+            <small class="text-muted">CSV must contain Name and Email columns</small>
+        </div>
+        <div class="modal-footer"><button type="submit" class="btn btn-primary">Upload</button></div>
+    </form>
+</div></div></div>

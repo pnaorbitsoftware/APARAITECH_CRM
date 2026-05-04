@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Automation Rules</h2>
+<p class="text-muted">Setup coming soon – you can add follow‑up sequences after form submit or scored activity.</p>
+{% if rules %}
+<table class="table"><thead><tr><th>Name</th><th>Trigger</th><th>Action</th></tr></thead><tbody>
+{% for r in rules %}<tr><td>{{ r.name }}</td><td>{{ r.trigger_type }}:{{ r.trigger_value }}</td><td>{{ r.action_type }}:{{ r.action_value }}</td></tr>{% endfor %}
+</tbody></table>
+{% else %}
+<div class="alert alert-info">No automation rules yet. You can add them via SQL or build a simple form.</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>APARAITECH CRM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar -->
+        <div class="col-md-2 p-0 bg-dark text-white min-vh-100">
+            <div class="p-3 text-center border-bottom">
+                <h4><i class="fas fa-code"></i> APARAITECH</h4>
+                <small>Advanced CRM</small>
+            </div>
+            <nav class="nav flex-column p-2">
+                <!-- Core -->
+                <a class="nav-link text-white" href="/"><i class="fas fa-tachometer-alt me-2"></i> Dashboard</a>
+                <a class="nav-link text-white" href="/leads"><i class="fas fa-users me-2"></i> Leads</a>
+                <a class="nav-link text-white" href="/email"><i class="fas fa-envelope me-2"></i> Email Campaign</a>
+                <a class="nav-link text-white" href="/forms"><i class="fas fa-google me-2"></i> Form Data</a>
+                
+                <!-- Advanced Marketing Features -->
+                <div class="dropdown-divider my-2"></div>
+                <small class="text-muted px-2">MARKETING</small>
+                <a class="nav-link text-white" href="/marketing-dashboard"><i class="fas fa-chart-line me-2"></i> Marketing Analytics</a>
+                <a class="nav-link text-white" href="/campaigns"><i class="fas fa-bullhorn me-2"></i> Campaigns</a>
+                <a class="nav-link text-white" href="/segments"><i class="fas fa-filter me-2"></i> Lead Segments</a>
+                <a class="nav-link text-white" href="/lead-scoring"><i class="fas fa-star me-2"></i> Lead Scoring</a>
+                <a class="nav-link text-white" href="/email-automation"><i class="fas fa-robot me-2"></i> Automation</a>
+                
+                <!-- Exports -->
+                <div class="dropdown-divider my-2"></div>
+                <a class="nav-link text-white" href="/export-leads"><i class="fas fa-download me-2"></i> Export Leads</a>
+            </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="col-md-10 p-4">
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }} alert-dismissible fade show">{{ message }}<button type="button" class="btn-close" data-bs-dismiss="alert"></button></div>
+                {% endfor %}
+            {% endwith %}
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+<hr>
+<a class="nav-link text-white" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">

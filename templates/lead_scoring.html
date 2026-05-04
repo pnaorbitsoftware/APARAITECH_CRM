@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Lead Scores</h2>
+<table class="table table-striped">
+    <thead><tr><th>Name</th><th>Email</th><th>Score</th></tr></thead>
+    <tbody>
+    {% for lead in leads %}
+        <tr>
+            <td>{{ lead.name }}</td><td>{{ lead.email }}</td>
+            <td><span class="badge bg-{{ 'success' if lead.score>=50 else 'warning' if lead.score>=20 else 'secondary' }}">{{ lead.score }}</span></td>
+        </td>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

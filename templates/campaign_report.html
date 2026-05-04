@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Campaign Report</h2>
+<div class="row">
+    <div class="col-3"><div class="card"><div class="card-body"><h3>{{ stats.sent }}</h3><p>Sent</p></div></div></div>
+    <div class="col-3"><div class="card"><div class="card-body"><h3>{{ stats.opened }}</h3><p>Opened</p></div></div></div>
+    <div class="col-3"><div class="card"><div class="card-body"><h3>{{ stats.clicked }}</h3><p>Clicked</p></div></div></div>
+    <div class="col-3"><div class="card"><div class="card-body"><h3>{{ stats.open_rate }}%</h3><p>Open Rate</p></div></div></div>
+</div>
+<h4>Events</h4>
+<table class="table"><thead><tr><th>Lead</th><th>Event</th><th>Time</th></tr></thead><tbody>
+{% for e in events %}<tr><td>{{ e.name }}</td><td>{{ e.event_type }}</td><td>{{ e.created_at }}</td></tr>{% endfor %}
+</tbody></table>
+{% endblock %}

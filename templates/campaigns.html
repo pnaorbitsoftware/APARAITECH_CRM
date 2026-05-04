@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Campaigns</h2>
+<a href="/campaign/new" class="btn btn-primary mb-3">+ New Campaign</a>
+<table class="table table-bordered">
+    <thead><tr><th>Name</th><th>Subject</th><th>Status</th><th>Created</th><th>Actions</th></tr></thead>
+    <tbody>
+        {% for c in campaigns %}
+        <tr>
+            <td>{{ c.name }}</td><td>{{ c.subject }}</td><td>{{ c.status }}</td>
+            <td>{{ c.created_at[:10] }}</td>
+            <td>
+                <a href="/campaign/send/{{ c.id }}" class="btn btn-sm btn-success">Send Now</a>
+                <a href="/campaign/stats/{{ c.id }}" class="btn btn-sm btn-info">Stats</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
